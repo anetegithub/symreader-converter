@@ -41,6 +41,15 @@ namespace Microsoft.DiaSymReader.Tools
 
         public static int Main(string[] args)
         {
+            args = new string[]
+            {
+                @"C:\Users\Anton\Source\Repos\CodeGeneration.Roslyn\samples\GeneratorInConsumerSolution\Sample.Consumer\bin\Debug\netstandard2.0\Sample.Consumer.dll",
+                @"/pdb",
+                @"C:\Users\Anton\Source\Repos\CodeGeneration.Roslyn\samples\GeneratorInConsumerSolution\Sample.Consumer\bin\Debug\netstandard2.0\Sample.Consumer.pdb",
+                @"/out",
+                @"C:\Users\Anton\Source\Repos\CodeGeneration.Roslyn\samples\GeneratorInConsumerSolution\Sample.Consumer\bin\Debug\netstandard2.0\windows.pdb"
+            };
+
             Args parsedArgs;
             try
             {
@@ -51,8 +60,20 @@ namespace Microsoft.DiaSymReader.Tools
                 Console.Error.WriteLine(Resources.Pdb2PdbUsage);
                 Console.Error.WriteLine();
                 Console.Error.WriteLine(e.Message);
+                Console.ReadLine();
                 return 1;
             }
+
+            //parsedArgs = new Args(
+            //    @"C:\Users\Anton\Source\Repos\CodeGeneration.Roslyn\samples\GeneratorInConsumerSolution\Sample.Consumer\bin\Debug\netstandard2.0\Sample.Consumer.dll",
+            //    @"C:\Users\Anton\Source\Repos\CodeGeneration.Roslyn\samples\GeneratorInConsumerSolution\Sample.Consumer\bin\Debug\netstandard2.0\Sample.Consumer.pdb",
+            //    @"C:\Users\Anton\Source\Repos\CodeGeneration.Roslyn\samples\GeneratorInConsumerSolution\Sample.Consumer\bin\Debug\netstandard2.0\conv.pdb",
+            //    new PortablePdbConversionOptions(
+            //        suppressSourceLinkConversion: true,
+            //        srcSvrVariables: new List<KeyValuePair<string, string>>()),
+            //    new List<PdbDiagnosticId>().ToImmutableArray(),
+            //    false,
+            //    false);
 
             try
             {
@@ -61,6 +82,7 @@ namespace Microsoft.DiaSymReader.Tools
             catch (Exception e)
             {
                 Console.Error.WriteLine(e.Message);
+                Console.ReadLine();
                 return 2;
             }
         }
@@ -236,10 +258,10 @@ namespace Microsoft.DiaSymReader.Tools
                         var outPdbStream = new MemoryStream();
                         if (PdbConverter.IsPortable(srcPdbStreamOpt))
                         {
-                            converter.ConvertPortableToWindows(peReader, srcPdbStreamOpt, outPdbStream, args.Options);
-                        }
-                        else
-                        {
+                        //    converter.ConvertPortableToWindows(peReader, srcPdbStreamOpt, outPdbStream, args.Options);
+                        //}
+                        //else
+                        //{
                             converter.ConvertWindowsToPortable(peReader, srcPdbStreamOpt, outPdbStream);
                         }
 

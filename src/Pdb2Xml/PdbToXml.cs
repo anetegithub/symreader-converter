@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,14 @@ namespace Microsoft.DiaSymReader.Tools
 
         public static int Main(string[] args)
         {
+            args = new string[]
+            {
+                @"C:\Users\Anton\Source\Repos\CodeGeneration.Roslyn\samples\GeneratorInConsumerSolution\Sample.Consumer\bin\Debug\netstandard2.0\Sample.Consumer.dll",
+                @"/out",
+                @"C:\Users\Anton\Source\Repos\CodeGeneration.Roslyn\samples\GeneratorInConsumerSolution\Sample.Consumer\bin\Debug\netstandard2.0\Sample.Consumer.pdb.xml"
+            };
+
+            
             Args parsedArgs;
             try
             {
@@ -37,6 +46,8 @@ namespace Microsoft.DiaSymReader.Tools
                 Console.Error.WriteLine("Usage: Pdb2Xml <PEFile | DeltaPdb> [/out <output file>] [/tokens] [/methodSpans] [/delta] [/srcsvr] [/sources] [/native]");
                 Console.Error.WriteLine();
                 Console.Error.WriteLine(e.Message);
+
+                Console.ReadLine();
                 return 1;
             }
 
@@ -44,11 +55,13 @@ namespace Microsoft.DiaSymReader.Tools
             {
                 Convert(parsedArgs);
                 Console.WriteLine($"PDB dump written to {parsedArgs.OutputPath}");
+                Console.ReadLine();
                 return 0;
             }
             catch (Exception e)
             {
                 Console.Error.WriteLine(e.Message);
+                Console.ReadLine();
                 return 2;
             }
         }

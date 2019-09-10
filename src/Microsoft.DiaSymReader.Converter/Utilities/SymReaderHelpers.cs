@@ -11,11 +11,11 @@ using System.Text;
 
 namespace Microsoft.DiaSymReader.Tools
 {
-    internal static class SymReaderHelpers
+    public static class SymReaderHelpers
     {
-        internal static readonly Guid VisualBasicLanguageGuid = new Guid("3a12d0b8-c26c-11d0-b442-00a0244a1dd2");
+        public static readonly Guid VisualBasicLanguageGuid = new Guid("3a12d0b8-c26c-11d0-b442-00a0244a1dd2");
 
-        internal static bool IsPortable(Stream pdbStream)
+        public static bool IsPortable(Stream pdbStream)
         {
             pdbStream.Position = 0;
 

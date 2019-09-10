@@ -283,6 +283,8 @@ namespace Microsoft.DiaSymReader.Tools
                 return;
             }
 
+            Console.WriteLine("methodHandle: "+ method?.GetToken());
+
             _writer.WriteStartElement("method");
 
             WriteMethodAttributes(MetadataTokens.GetToken(methodHandle), isReference: false);
@@ -1716,6 +1718,8 @@ namespace Microsoft.DiaSymReader.Tools
                 _writer.WriteAttributeString(isReference ? "declaringType" : "containingType", fullName);
             }
 
+            Console.WriteLine("from type: "+ fullName);
+            Console.WriteLine("methodname: "+ _metadataReader.GetString(method.Name));
             // method name
             _writer.WriteAttributeString(isReference ? "methodName" : "name", _metadataReader.GetString(method.Name));
 
